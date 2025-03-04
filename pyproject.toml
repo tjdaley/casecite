@@ -1,0 +1,35 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "casecite"
+version = "0.0.1"
+authors = [
+	{ name="Thomas J. Daley", email="tom@powerdaley.com" },
+]
+description = "Generate legal citatations with zero hallucination using generative AI"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+	"anthropic>=0.19.1",
+	"openai>=0.27.6",
+	"python-dotenv>=1.0.1",
+	"google-generativeai>=0.3.2",
+	"google-api-python-client>=2.98.0",
+	"google-auth-httplib2>=0.1.0",
+	"google-auth-oauthlib>=1.0.0",
+	"google-cloud-aiplatform>=1.32.0",
+	"google-generativeai>=0.3.2"
+]
+classifiers = [
+	"Programming Language :: Python :: 3.11",
+	"License :: OSI Approved :: Open Software License 3.0 (OSL-3.0)",
+	"Operating System :: OS Independent",
+	"Natural Language :: English",
+  "Development Status :: 3 - Alpha"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/tjdaley/casecite"
+"Bug Tracker" = "https://github.com/tjdaley/casecite/issues"
