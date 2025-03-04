@@ -1,0 +1,3 @@
+langchain
+python-dotenv
+falconlogger @ git+https://github.com/tjdaley/falconlogger.git@main
