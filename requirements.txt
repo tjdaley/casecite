@@ -1,3 +1,7 @@
+anthropic
 langchain
+langchain_anthropic
+langchain_community
+pydantic
 python-dotenv
 falconlogger @ git+https://github.com/tjdaley/falconlogger.git@main

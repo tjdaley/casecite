@@ -12,8 +12,12 @@ description = "Generate legal citatations with zero hallucination using generati
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+	"anthropic",
 	"langchain",
-        "python-dotenv",
+	"langchain-anthropic",
+	"langchain_community",
+	"pydantic",
+    "python-dotenv",
  	"falconlogger @ git+https://github.com/tjdaley/falconlogger.git@main"
 ]
 classifiers = [
