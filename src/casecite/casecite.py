@@ -315,7 +315,7 @@ class LegalCitationResearcher:
         # Step 3: Create summary analysis of proposition vs citations using the text report
         conclusion = self.draw_conclusion(proposition, verified_citations)
         
-        # Step 3: Create final report
+        # Step 4: Create final report
         result = self.create_final_report(verified_citations, proposition, conclusion)
         
         return result
