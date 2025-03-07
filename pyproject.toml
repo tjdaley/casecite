@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "casecite"
-version = "0.0.1"
+version = "0.0.2"
 authors = [
 	{ name="Thomas J. Daley", email="tom@powerdaley.com" },
 ]
@@ -17,8 +17,7 @@ dependencies = [
 	"langchain-anthropic",
 	"langchain_community",
 	"pydantic",
-    "python-dotenv",
- 	"falconlogger @ git+https://github.com/tjdaley/falconlogger.git@main"
+    	"python-dotenv"
 ]
 classifiers = [
 	"Programming Language :: Python :: 3.11",
