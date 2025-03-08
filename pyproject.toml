@@ -30,3 +30,6 @@ classifiers = [
 [project.urls]
 "Homepage" = "https://github.com/tjdaley/casecite"
 "Bug Tracker" = "https://github.com/tjdaley/casecite/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/casecite"]
