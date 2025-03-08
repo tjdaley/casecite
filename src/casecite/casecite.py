@@ -13,7 +13,7 @@ from langchain.chains import LLMChain
 from langchain.schema import HumanMessage, SystemMessage
 import re
 
-from model_params import ModelParams
+from casecite.model_params import ModelParams
 
 # Define output models for structured parsing
 class Citation(BaseModel):
