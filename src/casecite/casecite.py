@@ -4,7 +4,7 @@ This script defines a LegalCiteCheck class that uses a LangChain model to perfor
 """
 import json
 import os
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Tuple
 from pydantic import BaseModel, Field
 from langchain.prompts import ChatPromptTemplate, HumanMessagePromptTemplate, SystemMessagePromptTemplate
 from langchain.output_parsers import PydanticOutputParser
@@ -304,8 +304,18 @@ class LegalCitationResearcher:
 
         return verified_citations
     
-    def research_legal_proposition(self, proposition: str) -> CitationResult:
-        """Complete multi-step legal research process."""
+    def research_legal_proposition(self, proposition: str, user_key: str = None) -> Tuple[CitationResult, str]:
+        """
+        Complete multi-step legal research process.
+
+        Args:
+        - proposition (str): The legal proposition to research.
+        - user_key (str): A unique user key to track the research process.
+
+        Returns:
+        - result (CitationResult): The final citation result.
+        - user_key (str): The unique user key.
+        """
         # Step 1: Generate initial citations
         initial_citations = self.get_initial_citations(proposition)
         
@@ -318,7 +328,7 @@ class LegalCitationResearcher:
         # Step 4: Create final report
         result = self.create_final_report(verified_citations, proposition, conclusion)
         
-        return result
+        return result, user_key
     
     def markdown_report(self, result: CitationResult, proposition: str) -> str:
         """Generate a markdown report from the final citation result."""
@@ -362,7 +372,7 @@ def main():
     if not proposition:
         proposition = "In Texas, separate property can be transformed into community property through commingling."
     
-    result = researcher.research_legal_proposition(proposition)
+    result, user_key = researcher.research_legal_proposition(proposition, user_key)
     markdown_report = researcher.markdown_report(result, proposition)
     print(markdown_report)
 
