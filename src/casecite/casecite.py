@@ -44,6 +44,8 @@ class CitationResult(BaseModel):
 # LangChain Citation Research System
 class LegalCitationResearcher:
     def __init__(self, config: ModelParams):
+        print("Initializing LegalCitationResearcher".center(50, "-"))
+        print("Vendor:", config.vendor)
         if config.vendor == "anthropic":
             self.llm = ChatAnthropic(
                 model=config.model,
