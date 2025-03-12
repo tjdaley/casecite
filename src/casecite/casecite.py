@@ -58,7 +58,7 @@ class LegalCitationResearcher:
                 temperature=config.temperature,
                 max_tokens=config.max_tokens,
             )
-        elif config.vendor == "google":
+        elif config.vendor == "gemini":
             self.llm = ChatGoogleGenerativeAI(
                 model=f'models/{config.model}',
                 google_api_key=config.api_key,
