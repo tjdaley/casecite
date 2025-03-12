@@ -97,7 +97,8 @@ class LegalCitationResearcher:
                 3. Explain why it might be relevant to the proposition
                 
                 Format the citations as a json list of objects with the following structure between <json_output> tags:
-                <json_output>
+                
+                ```json
                 [
                     {{
                         "citation_text": "Tex. Fam. Code § 6.002",
@@ -110,6 +111,13 @@ class LegalCitationResearcher:
                         "relevance": "Placeholder relevance."
                     }}
                 ]
+                ```
+
+                **Important:** Place your final response within `<json_output>` tags, as shown below:
+
+                ```text
+                <json_output>
+                [JSON content here]
                 </json_output>
                 """
         
@@ -143,7 +151,7 @@ class LegalCitationResearcher:
                 6. Mark any citations you cannot verify with specific details as "UNABLE TO VERIFY" in the "verification" field
                 
                 Format your response as json content containing a list of objects, in the following json structure:
-
+                ```json
                 [
                     {{
                         "citation_text": "Tex. Fam. Code § 6.002",
@@ -164,7 +172,16 @@ class LegalCitationResearcher:
                         "is_verified": true
                     }}
                 ]
-                """
+                ```
+
+                **Important:** Place your final response within `<json_output>` tags, as shown below:
+
+                ```text
+                <json_output>
+                [JSON content here]
+                </json_output>
+                ```
+            """
         
         self.conclusion_system_prompt = """
         You are LegalCiteCheck Conclusion Analyst. Your role is to synthesize the verified citations
