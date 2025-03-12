@@ -119,6 +119,7 @@ class LegalCitationResearcher:
                 <json_output>
                 [JSON content here]
                 </json_output>
+                ```
                 """
         
         self.verification_system_prompt = """
