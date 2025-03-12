@@ -224,12 +224,13 @@ class LegalCitationResearcher:
         print("Initial Citations".center(50, "-"))
         print(text)
         print("".center(50, " -"))
+
         if isinstance(text, dict):
             print("reformatting text")
             text = json.dumps(text, indent=4)
+        else:
+            text = self.extract_text(text)
 
-        # The text we want is between <json_output> tags
-        text = re.search(r'[<json_output>|```json](.*?)[</json_output>|```]', text, re.DOTALL).group(1)
         print(text)
         print("".center(50, "-"))
         citations = json.loads(text)
@@ -240,14 +241,29 @@ class LegalCitationResearcher:
         print("Verification Results".center(50, "-"))
         print(text)
         print("".center(50, " -"))
+
         if isinstance(text, dict):
             print("reformatting text")
             text = json.dumps(text, indent=4)
-        text = re.search(r'[<json_output>|```json](.*?)[</json_output>|```]', text, re.DOTALL).group(1)
+        else:
+            text = self.extract_text(text)
+
         print(text)
         print("".center(50, "-"))
         citations = json.loads(text)
         return [VerifiedCitation(**cite) for cite in citations]
+    
+    def extract_text(self, text: str) -> str:
+        """Extract text from the model's response."""
+
+        # The desired text will either be between<json_output> tags or "```json" and "```"
+        # Worse, sometimes the LLM includes both sets of tags. In which case, we need
+        # to extract the text from the <json_output> tags.
+        if "```json" in text:
+            text = re.search(r'```json(.*?)```', text, re.DOTALL).group(1)
+        elif "<json_output>" in text:
+            text = re.search(r'<json_output>(.*?)</json_output>', text, re.DOTALL).group(1)
+        return text
     
     def get_initial_citations(self, proposition: str) -> List[Citation]:
         """Step 1: Generate initial citation list."""
