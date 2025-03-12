@@ -95,7 +95,7 @@ class LegalCitationResearcher:
                 2. Include a brief description of what the citation contains
                 3. Explain why it might be relevant to the proposition
                 
-                Format the citations as a json list of objects with the following structure:
+                Format the citations as a json list of objects with the following structure between <json_output> tags:
                 <json_output>
                 [
                     {{
@@ -141,7 +141,7 @@ class LegalCitationResearcher:
                 6. Mark any citations you cannot verify with specific details as "UNABLE TO VERIFY" in the "verification" field
                 
                 Format your response as a json list of objects, with clear sections for
-                each of the 4 items above in the following structure:
+                each of the 4 items above in the following structure between <json_output> tags:
                 <json_output>
                 [
                     {{
