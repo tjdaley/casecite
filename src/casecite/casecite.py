@@ -222,6 +222,8 @@ class LegalCitationResearcher:
     def extract_citations(self, text: str) -> List[Citation]:
         """Extract citations from the model's response."""
         print("Initial Citations".center(50, "-"))
+        print(text)
+        print("".center(50, " -"))
         if isinstance(text, dict):
             print("reformatting text")
             text = json.dumps(text, indent=4)
@@ -236,6 +238,8 @@ class LegalCitationResearcher:
     def extract_verified_citations(self, text: str) -> List[VerifiedCitation]:
         """Extract verified citations from the model's response."""
         print("Verification Results".center(50, "-"))
+        print(text)
+        print("".center(50, " -"))
         if isinstance(text, dict):
             print("reformatting text")
             text = json.dumps(text, indent=4)
