@@ -96,6 +96,7 @@ class LegalCitationResearcher:
                 3. Explain why it might be relevant to the proposition
                 
                 Format the citations as a json list of objects with the following structure:
+                <json_output>
                 [
                     {{
                         "citation_text": "Tex. Fam. Code § 6.002",
@@ -108,6 +109,7 @@ class LegalCitationResearcher:
                         "relevance": "Placeholder relevance."
                     }}
                 ]
+                </json_output>
                 """
         
         self.verification_system_prompt = """
@@ -140,6 +142,7 @@ class LegalCitationResearcher:
                 
                 Format your response as a json list of objects, with clear sections for
                 each of the 4 items above in the following structure:
+                <json_output>
                 [
                     {{
                         "citation_text": "Tex. Fam. Code § 6.002",
@@ -160,6 +163,7 @@ class LegalCitationResearcher:
                         "is_verified": true
                     }}
                 ]
+                </json_output>
                 """
         
         self.conclusion_system_prompt = """
