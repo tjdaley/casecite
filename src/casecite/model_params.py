@@ -7,7 +7,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-VALID_VENDORS = ["anthropic", "openai"]
+# List of valid vendors for the LLM model
+# TODO: Load from database
+VALID_VENDORS = ["anthropic", "openai", "gemini", "groq"]
 
 
 class ModelParams():
