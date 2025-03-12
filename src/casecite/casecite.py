@@ -142,9 +142,8 @@ class LegalCitationResearcher:
                 5. Explain exactly how it supports or refutes the proposition
                 6. Mark any citations you cannot verify with specific details as "UNABLE TO VERIFY" in the "verification" field
                 
-                Format your response as a json list of objects, with clear sections for
-                each of the 4 items above in the following structure between <json_output> tags:
-                <json_output>
+                Format your response as json content containing a list of objects, in the following json structure:
+
                 [
                     {{
                         "citation_text": "Tex. Fam. Code § 6.002",
@@ -165,7 +164,6 @@ class LegalCitationResearcher:
                         "is_verified": true
                     }}
                 ]
-                </json_output>
                 """
         
         self.conclusion_system_prompt = """
