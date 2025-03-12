@@ -83,7 +83,7 @@ class LegalCitationResearcher:
         2. Provide each citation in proper Bluebook format
         3. Include a brief description of what each citation contains
         4. Focus on Texas family law authorities unless specifically directed otherwise
-        5. Always output json content between <json_output> tags
+        5. Always output json content between `<json_output>` and `</json_output>` tags
         """
 
         self.citation_user_prompt = """
@@ -113,7 +113,7 @@ class LegalCitationResearcher:
                 ]
                 ```
 
-                **Important:** Place your final response within `<json_output>` tags, as shown below:
+                **Important:** Place your final response within `<json_output>` and `</json_output>` tags, as shown below:
 
                 ```text
                 <json_output>
@@ -131,7 +131,7 @@ class LegalCitationResearcher:
         3. Only mark citations as verified if you have High or Medium confidence
         4. Provide the exact holding or statutory language that makes the citation relevant
         5. Be transparent about any limitations in your knowledge
-        6. Always output json content between <json_output> tags
+        6. Always output json content between `<json_output>` and `</json_output>` tags
         """
 
         self.verification_user_prompt = """
@@ -174,7 +174,7 @@ class LegalCitationResearcher:
                 ]
                 ```
 
-                **Important:** Place your final response within `<json_output>` tags, as shown below:
+                **Important:** Place your final response within `<json_output>` and `</json_output>` tags, as shown below:
 
                 ```text
                 <json_output>
