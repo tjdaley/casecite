@@ -223,7 +223,7 @@ class LegalCitationResearcher:
         """Extract citations from the model's response."""
         print("Initial Citations".center(50, "-"))
         print(text)
-        print("".center(50, " -"))
+        print("".center(50, "."))
 
         if isinstance(text, dict):
             print("reformatting text")
@@ -240,7 +240,7 @@ class LegalCitationResearcher:
         """Extract verified citations from the model's response."""
         print("Verification Results".center(50, "-"))
         print(text)
-        print("".center(50, " -"))
+        print("".center(50, "."))
 
         if isinstance(text, dict):
             print("reformatting text")
