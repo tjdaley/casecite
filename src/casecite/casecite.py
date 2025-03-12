@@ -207,8 +207,9 @@ class LegalCitationResearcher:
         if isinstance(text, dict):
             print("reformatting text")
             text = json.dumps(text, indent=4)
-        if text.startswith('```json'):
-            text = text[8:-3]
+
+        # The text we want is between <json_output> tags
+        text = re.search(r'<json_output>(.*?)</json_output>', text, re.DOTALL).group(1)
         print(text)
         print("".center(50, "-"))
         citations = json.loads(text)
@@ -220,8 +221,7 @@ class LegalCitationResearcher:
         if isinstance(text, dict):
             print("reformatting text")
             text = json.dumps(text, indent=4)
-        if text.startswith('```json'):
-            text = text[8:-3]
+        text = re.search(r'<json_output>(.*?)</json_output>', text, re.DOTALL).group(1)
         print(text)
         print("".center(50, "-"))
         citations = json.loads(text)
