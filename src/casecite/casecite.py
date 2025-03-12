@@ -9,6 +9,9 @@ from pydantic import BaseModel, Field
 from langchain.prompts import ChatPromptTemplate, HumanMessagePromptTemplate, SystemMessagePromptTemplate
 from langchain.output_parsers import PydanticOutputParser
 from langchain_anthropic import ChatAnthropic
+from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_groq import ChatGroq
 from langchain.chains import LLMChain
 from langchain.schema import HumanMessage, SystemMessage
 import re
@@ -41,6 +44,34 @@ class CitationResult(BaseModel):
 # LangChain Citation Research System
 class LegalCitationResearcher:
     def __init__(self, config: ModelParams):
+        if config.vendor == "anthropic":
+            self.llm = ChatAnthropic(
+                model=config.model,
+                anthropic_api_key=config.api_key,
+                temperature=config.temperature,
+                max_tokens=config.max_tokens,
+            )
+        elif config.vendor == "openai":
+            self.llm = ChatOpenAI(
+                model=config.model,
+                api_key=config.api_key,
+                temperature=config.temperature,
+                max_tokens=config.max_tokens,
+            )
+        elif config.vendor == "google":
+            self.llm = ChatGoogleGenerativeAI(
+                model=f'models/{config.model}',
+                google_api_key=config.api_key,
+                temperature=config.temperature,
+                max_tokens=config.max_tokens,
+            )
+        elif config.vendor == 'groq':
+            self.llm = ChatGroq(
+                model=config.model,
+                groq_api_key=config.api_key,
+                temperature=config.temperature,
+                max_tokens=config.max_tokens,
+            )
         self.llm = ChatAnthropic(
             model=config.model,
             anthropic_api_key=config.api_key,

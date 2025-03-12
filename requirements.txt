@@ -1,6 +1,9 @@
 anthropic
 langchain
-langchain_anthropic
+langchain-anthropic
+langchain-openai
+langchain-google-genai
+langchain-groq
 langchain_community
 pydantic
 python-dotenv

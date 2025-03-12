@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "casecite"
-version = "0.0.5"
+version = "0.0.6"
 authors = [
 	{ name="Thomas J. Daley", email="tom@powerdaley.com" },
 ]
@@ -15,9 +15,12 @@ dependencies = [
 	"anthropic",
 	"langchain",
 	"langchain-anthropic",
+	"langchain-openai",
+	"langchain-google-genai",
+	"langchain-groq",
 	"langchain_community",
 	"pydantic",
-    	"python-dotenv"
+    "python-dotenv"
 ]
 classifiers = [
 	"Programming Language :: Python :: 3.11",
