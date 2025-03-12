@@ -44,8 +44,6 @@ class CitationResult(BaseModel):
 # LangChain Citation Research System
 class LegalCitationResearcher:
     def __init__(self, config: ModelParams):
-        print("Initializing LegalCitationResearcher".center(50, "-"))
-        print("Vendor:", config.vendor)
         if config.vendor == "anthropic":
             self.llm = ChatAnthropic(
                 model=config.model,
@@ -74,12 +72,6 @@ class LegalCitationResearcher:
                 temperature=config.temperature,
                 max_tokens=config.max_tokens,
             )
-        self.llm = ChatAnthropic(
-            model=config.model,
-            anthropic_api_key=config.api_key,
-            temperature=config.temperature,
-            max_tokens=config.max_tokens,
-        )
         
         # Set up the system prompts
         self.citation_system_prompt = """
