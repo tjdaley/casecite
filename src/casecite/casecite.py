@@ -371,7 +371,7 @@ class LegalCitationResearcher:
         
         return CitationResult(
             verified_citations=sorted_citations,  #final_citations,
-            limitations=limitations,
+            limitations=limitations_statement,
             conclusion=conclusion
         )
     
