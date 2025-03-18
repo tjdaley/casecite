@@ -235,7 +235,8 @@ class LegalCitationResearcher:
         try:
             json_object = json.loads(text)
             citations = [Citation(**cite) for cite in json_object]
-        except json.JSONDecodeError:
+        except json.JSONDecodeError as e:
+            self.logger.exception(e)
             self.logger.error("(C) Failed to decode JSON from text: %s", text)
             citations = []
 
@@ -303,7 +304,7 @@ class LegalCitationResearcher:
         else:
             self.logger.warning("No match found for either ```json or <json_output> in text: %s", text)
             text = ''
-        text = text.strip()
+        text = text.strip().replace('\n', '')
         return text
     
     def get_initial_citations(self, proposition: str) -> List[Citation]:
