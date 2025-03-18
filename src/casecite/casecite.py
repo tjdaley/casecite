@@ -232,8 +232,14 @@ class LegalCitationResearcher:
         else:
             text = self.extract_text(text)
 
-        citations = json.loads(text)
-        return [Citation(**cite) for cite in citations]
+        try:
+            json_object = json.loads(text)
+            citations = [Citation(**cite) for cite in json_object]
+        except json.JSONDecodeError:
+            self.logger.error("Failed to decode JSON from text: %s", text)
+            citations = []
+
+        return citations
     
     def extract_verified_citations(self, text: str) -> List[VerifiedCitation]:
         """Extract verified citations from the model's response."""
