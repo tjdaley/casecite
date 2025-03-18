@@ -132,9 +132,9 @@ class LegalCitationResearcher:
         and determine if they actually support or refute a given proposition.
         
         IMPORTANT RULES:
-        1. Examine each citation carefully and recall specific details
-        2. Be honest about your confidence level for each citation
-        3. Only mark citations as verified if you have High or Medium confidence
+        1. Examine each citation carefully and recall specific details of the holding or statutory language
+        2. Be honest about your confidence level for your ability to recall each citation
+        3. Only mark citations as verified if you have High or Medium confidence in your recall
         4. Provide the exact holding or statutory language that makes the citation relevant
         5. Be transparent about any limitations in your knowledge
         6. Always output properly formatted json content between `<json_output>` and `</json_output>` tags
