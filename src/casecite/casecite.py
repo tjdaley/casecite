@@ -236,7 +236,7 @@ class LegalCitationResearcher:
             json_object = json.loads(text)
             citations = [Citation(**cite) for cite in json_object]
         except json.JSONDecodeError:
-            self.logger.error("Failed to decode JSON from text: %s", text)
+            self.logger.error("(C) Failed to decode JSON from text: %s", text)
             citations = []
 
         return citations
@@ -250,7 +250,13 @@ class LegalCitationResearcher:
         else:
             text = self.extract_text(text)
 
-        citations = json.loads(text)
+        try:
+            json_object = json.loads(text)
+            citations = [VerifiedCitation(**cite) for cite in json_object]
+        except json.JSONDecodeError:
+            self.logger.error("(V) Failed to decode JSON from text: %s", text)
+            citations = []
+
         return [VerifiedCitation(**cite) for cite in citations]
     
     def extract_limitations(self, text: str) -> str:
