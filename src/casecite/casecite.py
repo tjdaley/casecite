@@ -261,7 +261,7 @@ class LegalCitationResearcher:
             self.logger.error("(V) Failed to decode JSON from text: %s", text)
             citations = []
 
-        return [VerifiedCitation(**cite) for cite in citations]
+        return citations
     
     def extract_limitations(self, text: str) -> str:
         """Extract limitations from the model's response."""
