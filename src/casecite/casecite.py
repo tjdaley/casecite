@@ -278,9 +278,23 @@ class LegalCitationResearcher:
         # Worse, sometimes the LLM includes both sets of tags. In which case, we need
         # to extract the text from the <json_output> tags.
         if "```json" in text:
-            text = re.search(r'.*```json(.*?)```.*', text, re.DOTALL).group(1)
+            matches = re.search(r'.*```json(.*?)```.*', text, re.DOTALL)
+            if matches:
+                text = matches.group(1)
+            else:
+                self.logger.warning("No match found for ```json in text: %s", text)
+                text = ''
         elif "<json_output>" in text:
-            text = re.search(r'.*\<json_output\>(.*?)\</json_output\>.*', text, re.DOTALL).group(1)
+            matches = re.search(r'.*\<json_output\>(.*?)\</json_output\>.*', text, re.DOTALL)
+            if matches:
+                text = matches.group(1)
+            else:
+                self.logger.warning("No match found for <json_output> in text: %s", text)
+                text = ''
+        else:
+            self.logger.warning("No match found for either ```json or <json_output> in text: %s", text)
+            text = ''
+        text = text.strip()
         return text
     
     def get_initial_citations(self, proposition: str) -> List[Citation]:
