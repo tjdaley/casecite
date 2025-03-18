@@ -3,6 +3,7 @@ LegalCiteCheck: A Legal Citation Research System
 This script defines a LegalCiteCheck class that uses a LangChain model to perform multi-step legal citation research.
 """
 import json
+import logging
 import os
 from typing import List, Dict, Any, Tuple
 from pydantic import BaseModel, Field
@@ -44,6 +45,9 @@ class CitationResult(BaseModel):
 # LangChain Citation Research System
 class LegalCitationResearcher:
     def __init__(self, config: ModelParams):
+        """Initialize the researcher with the specified model and prompts."""
+        self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.INFO)
         if config.vendor == "anthropic":
             self.llm = ChatAnthropic(
                 model=config.model,
@@ -221,53 +225,40 @@ class LegalCitationResearcher:
         
     def extract_citations(self, text: str) -> List[Citation]:
         """Extract citations from the model's response."""
-        print("Initial Citations".center(50, "-"))
-        print(text)
-        print("".center(50, "."))
+        self.logger.info(f"Extracting citations from text: %s", text)
 
         if isinstance(text, dict):
-            print("reformatting text")
             text = json.dumps(text, indent=4)
         else:
             text = self.extract_text(text)
 
-        print(text)
-        print("".center(50, "-"))
         citations = json.loads(text)
         return [Citation(**cite) for cite in citations]
     
     def extract_verified_citations(self, text: str) -> List[VerifiedCitation]:
         """Extract verified citations from the model's response."""
-        print("Verification Results".center(50, "-"))
-        print(text)
-        print("".center(50, "."))
+        self.logger.info(f"Extracting verified citations from text: %s", text)
 
         if isinstance(text, dict):
-            print("reformatting text")
             text = json.dumps(text, indent=4)
         else:
             text = self.extract_text(text)
 
-        print(text)
-        print("".center(50, "-"))
         citations = json.loads(text)
         return [VerifiedCitation(**cite) for cite in citations]
     
     def extract_limitations(self, text: str) -> str:
         """Extract limitations from the model's response."""
         if isinstance(text, dict):
-            print("reformatting text")
             json_text = json.dumps(text, indent=4)
         else:
             json_text = self.extract_text(text)
         
-        print(json_text)
-        print("".center(50, "-"))
+        self.logger.info(f"Extracting limitations from text: %s", json_text)
 
         json_object = json.loads(json_text)
         text = json_object.get('limitations_statement', '')
-        print(text)
-        print("".center(50, "-"))
+        self.logger.info(f"Extracted limitations: %s", text)
 
         return text.strip()
     
@@ -318,9 +309,7 @@ class LegalCitationResearcher:
         
         response = verification_chain.run(proposition=proposition, citations=citations_text)
 
-        print("Verification Results".center(50, "-"))
-        print(response)
-        print("".center(50, "-"))
+        self.logger.info(f"Verification response: %s", response)
         
         # Process the verification results
         verified_citations = self.extract_verified_citations(response)
@@ -373,7 +362,7 @@ class LegalCitationResearcher:
         
         limitations = limitations_chain.run(proposition=proposition)
         limitations_statement = self.extract_limitations(limitations)
-        print(limitations_statement)
+        self.logger.info(f"Limitations statement: %s", limitations_statement)
         
         return CitationResult(
             verified_citations=sorted_citations,  #final_citations,
