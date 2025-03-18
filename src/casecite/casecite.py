@@ -257,10 +257,10 @@ class LegalCitationResearcher:
         self.logger.info(f"Extracting limitations from text: %s", json_text)
 
         json_object = json.loads(json_text)
-        text = json_object.get('limitations_statement', '')
-        self.logger.info(f"Extracted limitations: %s", text)
+        limitations_text = json_object.get('limitations_statement', f"*{text}")
+        self.logger.info(f"Extracted limitations: %s", limitations_text)
 
-        return text.strip()
+        return limitations_text.strip()
     
     def extract_text(self, text: str) -> str:
         """Extract text from the model's response."""
