@@ -331,7 +331,11 @@ class LegalCitationResearcher:
         )
 
         response = conclusion_chain.run(proposition=proposition, research_results=research_results)
-        return response
+        json_text = self.extract_text(response)
+        response_json = json.loads(json_text)
+        conclusion = response_json.get('conclusion', 'No conclusion found.')
+
+        return conclusion
     
     def create_final_report(self, verified_citations: List[VerifiedCitation], proposition: str, conclusion: str) -> CitationResult:
         """Step 3: Create a final report with only verified citations."""
