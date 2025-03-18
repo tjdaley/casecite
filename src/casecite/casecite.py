@@ -88,6 +88,7 @@ class LegalCitationResearcher:
         3. Include a brief description of what each citation contains
         4. Focus on Texas family law authorities unless specifically directed otherwise
         5. Always output properly formatted json content between `<json_output>` and `</json_output>` tags
+        6. If you cannot complete a citation because of output token limits, drop that citation and complete the json output.
         """
 
         self.citation_user_prompt = """
@@ -137,6 +138,7 @@ class LegalCitationResearcher:
         4. Provide the exact holding or statutory language that makes the citation relevant
         5. Be transparent about any limitations in your knowledge
         6. Always output properly formatted json content between `<json_output>` and `</json_output>` tags
+        7. If you cannot complete a citation because of output token limits, drop that citation and complete the json output.
         """
 
         self.verification_user_prompt = """
