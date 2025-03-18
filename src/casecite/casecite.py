@@ -253,6 +253,19 @@ class LegalCitationResearcher:
         citations = json.loads(text)
         return [VerifiedCitation(**cite) for cite in citations]
     
+    def extract_limitations(self, text: str) -> str:
+        """Extract limitations from the model's response."""
+        if isinstance(text, dict):
+            print("reformatting text")
+            json_text = json.dumps(text, indent=4)
+        else:
+            json_text = self.extract_text(text)
+
+        json_object = json.loads(json_text)
+        text = json_object.get('limitations_statement', '')
+
+        return text.strip()
+    
     def extract_text(self, text: str) -> str:
         """Extract text from the model's response."""
 
@@ -331,11 +344,7 @@ class LegalCitationResearcher:
         )
 
         response = conclusion_chain.run(proposition=proposition, research_results=research_results)
-        json_text = self.extract_text(response)
-        response_json = json.loads(json_text)
-        conclusion = response_json.get('conclusion', 'No conclusion found.')
-
-        return conclusion
+        return response
     
     def create_final_report(self, verified_citations: List[VerifiedCitation], proposition: str, conclusion: str) -> CitationResult:
         """Step 3: Create a final report with only verified citations."""
@@ -358,6 +367,7 @@ class LegalCitationResearcher:
         )
         
         limitations = limitations_chain.run(proposition=proposition)
+        limitations_statement = self.extract_limitations(limitations)
         
         return CitationResult(
             verified_citations=sorted_citations,  #final_citations,
