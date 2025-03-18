@@ -260,9 +260,14 @@ class LegalCitationResearcher:
             json_text = json.dumps(text, indent=4)
         else:
             json_text = self.extract_text(text)
+        
+        print(json_text)
+        print("".center(50, "-"))
 
         json_object = json.loads(json_text)
         text = json_object.get('limitations_statement', '')
+        print(text)
+        print("".center(50, "-"))
 
         return text.strip()
     
@@ -368,6 +373,7 @@ class LegalCitationResearcher:
         
         limitations = limitations_chain.run(proposition=proposition)
         limitations_statement = self.extract_limitations(limitations)
+        print(limitations_statement)
         
         return CitationResult(
             verified_citations=sorted_citations,  #final_citations,
