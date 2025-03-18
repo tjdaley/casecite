@@ -256,8 +256,11 @@ class LegalCitationResearcher:
         
         self.logger.warning(f"Extracting limitations from text: %s", json_text)
 
-        json_object = json.loads(json_text)
-        limitations_text = json_object.get('limitations_statement', f"*{text}")
+        try:
+            json_object = json.loads(json_text)
+            limitations_text = json_object.get('limitations_statement', f"*{text}")
+        except json.JSONDecodeError:
+            limitations_text = f"*{text}*"
         self.logger.warning(f"Extracted limitations: %s", limitations_text)
 
         return limitations_text.strip()
