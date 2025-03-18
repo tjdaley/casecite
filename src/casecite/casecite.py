@@ -103,20 +103,18 @@ class LegalCitationResearcher:
                 Format the citations as a json list of objects with the following structure between <json_output> tags:
                 
                 ```json
-                {
-                    [
-                        {{
-                            "citation_text": "Tex. Fam. Code § 6.002",
-                            "description": "Placeholder description.",
-                            "relevance": "Placeholder relevance."
-                        }},
-                        {{
-                            "citation_text": "Placeholder citation",
-                            "description": "Placeholder description.",
-                            "relevance": "Placeholder relevance."
-                        }}
-                    ]
-                }
+                [
+                    {{
+                        "citation_text": "Tex. Fam. Code § 6.002",
+                        "description": "Placeholder description.",
+                        "relevance": "Placeholder relevance."
+                    }},
+                    {{
+                        "citation_text": "Placeholder citation",
+                        "description": "Placeholder description.",
+                        "relevance": "Placeholder relevance."
+                    }}
+                ]
                 ```
 
                 **Important:** Place your final response within `<json_output>` and `</json_output>` tags, as shown below:
@@ -159,28 +157,26 @@ class LegalCitationResearcher:
                 
                 Format your response as json content containing a list of objects, in the following json structure:
                 ```json
-                {
-                    [
-                        {{
-                            "citation_text": "Tex. Fam. Code § 6.002",
-                            "holding": "Placeholder holding or statutory language that makes this citation relevant.",
-                            "confidence": "Low",
-                            "flag": "SUPPORTS",
-                            "analysis": "Placeholder explanation of how this citation supports or refutes the proposition.",
-                            "verification": "Placeholder verification and explanation.",
-                            "is_verified": false
-                        }},
-                        {{
-                            "citation_text": "Placeholder citation",
-                            "holding": "Placeholder holding or statutory language.",
-                            "confidence": "High",
-                            "flag": "UNABLE TO VERIFY",
-                            "analysis": "Placeholder explanation of how this citation supports or refutes the proposition.",
-                            "verification": "Placeholder verification and explanation.",
-                            "is_verified": true
-                        }}
-                    ]
-                }
+                [
+                    {{
+                        "citation_text": "Tex. Fam. Code § 6.002",
+                        "holding": "Placeholder holding or statutory language that makes this citation relevant.",
+                        "confidence": "Low",
+                        "flag": "SUPPORTS",
+                        "analysis": "Placeholder explanation of how this citation supports or refutes the proposition.",
+                        "verification": "Placeholder verification and explanation.",
+                        "is_verified": false
+                    }},
+                    {{
+                        "citation_text": "Placeholder citation",
+                        "holding": "Placeholder holding or statutory language.",
+                        "confidence": "High",
+                        "flag": "UNABLE TO VERIFY",
+                        "analysis": "Placeholder explanation of how this citation supports or refutes the proposition.",
+                        "verification": "Placeholder verification and explanation.",
+                        "is_verified": true
+                    }}
+                ]
                 ```
 
                 **Important:** Place your final response within `<json_output>` and `</json_output>` tags, as shown below:
