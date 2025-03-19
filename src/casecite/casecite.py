@@ -54,6 +54,8 @@ class LegalCitationResearcher:
                 anthropic_api_key=config.api_key,
                 temperature=config.temperature,
                 max_tokens=config.max_tokens,
+                claude_reasoning=config.reasoning,
+                budget_tokens=config.reasoning_budget,
             )
         elif config.vendor == "openai":
             self.llm = ChatOpenAI(
@@ -61,6 +63,9 @@ class LegalCitationResearcher:
                 api_key=config.api_key,
                 temperature=config.temperature,
                 max_tokens=config.max_tokens,
+                frequency_penalty=config.frequency_penalty,
+                presence_penalty=config.presence_penalty,
+                top_p=config.p,
             )
         elif config.vendor == "gemini":
             self.llm = ChatGoogleGenerativeAI(
@@ -85,7 +90,7 @@ class LegalCitationResearcher:
         IMPORTANT RULES:
         1. Only list citations that might be relevant to the proposition
         2. Provide each citation in proper Bluebook format
-        3. Include a brief description of what each citation contains
+        3. Include a brief but well-reasoned description of what each citation contains
         4. Focus on Texas family law authorities unless specifically directed otherwise
         5. Always output properly formatted json content between `<json_output>` and `</json_output>` tags. You must include both tags. The json output between tags must be properly formatted and parsable.
         6. If you cannot complete a citation because of output token limits, drop that citation and complete the json output.
@@ -124,9 +129,57 @@ class LegalCitationResearcher:
                 tags must be properly formatted and parsable.
                 """
         
+        self.citation_user_prompt_thinking = """
+                You are LegalCiteCheck, a specialized legal research assistant focusing on Texas family law, Texas Rules of Evidence, Texas Rules of Civil Procedure, and Texas Civil Practice and Remedies Code. Your primary function is to provide accurate, verifiable legal citations relevant to a given proposition.
+
+                Here is the proposition you need to research:
+                <proposition>
+                "{proposition}"
+                </proposition>
+                
+                Instructions:
+                1. Analyze the proposition carefully.
+                2. Search for relevant Texas family law citations that address this proposition.
+                3. Perform your research inside <legal_analysis> tags in your thinking block:
+                    a. Extract key terms from the proposition.
+                    b. Categorize the proposition (e.g., custody, property division, etc.).
+                    c. List potential relevant statutes or rules before researching.
+                    d. For each potential citation:
+                        - Write out the full citation in Bluebook format.
+                        - Verify the existence and content of the citation using your knowledge base.
+                        - If you cannot verify the citation or its content with high confidence, discard it.
+                        - For verified citations, briefly describe what the citation contains.
+                        - Explain why the citation is relevant to the proposition.
+
+                4. After completing your research, format the verified citations as a JSON list of objects with the following structure:
+
+                ```json
+                [
+                {
+                    "citation_text": "Tex. Fam. Code § X.XXX",
+                    "description": "Brief description of what the citation contains.",
+                    "relevance": "Explanation of why it's relevant to the proposition."
+                }
+                ]
+                ```
+
+                5. Enclose the entire JSON output within <json_output> tags.
+
+                Important Rules:
+                - Only include citations that you can verify with high confidence.
+                - Provide each citation in proper Bluebook format.
+                - Focus on Texas family law authorities unless specifically directed otherwise.
+                - Do not fabricate or hallucinate any legal provisions or quotes.
+                - If you cannot complete a citation due to output token limits, omit that citation entirely and complete the JSON output with the citations you have.
+                - Do not include any text outside of the <legal_analysis> and <json_output> tags.
+
+                Begin your research now. Your final output should consist only of the JSON output within <json_output> tags and should not duplicate or rehash any of the work you did in the legal analysis section.
+                """
+        
         self.verification_system_prompt = """
         You are LegalCiteCheck Verification Specialist. Your job is to critically examine legal citations
-        and determine if they actually support or refute a given proposition.
+        and determine if they actually support or refute a given proposition. Provide well-reasoned analysis and
+        detailed explanations for your conclusions.
         
         IMPORTANT RULES:
         1. Examine each citation carefully and recall specific details of the holding or statutory language
@@ -307,7 +360,7 @@ class LegalCitationResearcher:
         """Step 1: Generate initial citation list."""
         citation_prompt = ChatPromptTemplate.from_messages([
             SystemMessagePromptTemplate.from_template(self.citation_system_prompt),
-            HumanMessagePromptTemplate.from_template(template=self.citation_user_prompt)
+            HumanMessagePromptTemplate.from_template(template=self.citation_user_prompt_thinking)
         ])
         
         citation_chain = LLMChain(

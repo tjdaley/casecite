@@ -36,22 +36,27 @@ class ModelParams():
         if not self.model:
             raise ValueError(f"Model not found for vendor: {vendor} // {key}")
         
+        self.reasoning = os.environ.get(f"{vendor.upper()}_REASONING_ENABLED", os.environ.get("REASONING_ENABLED", False))
+        if self.reasoning is not None:
+            self.reasoning = self.reasoning.lower() in ['true', '1', 't', 'yes', 'y']
+
+        self.reasoning_budget = os.environ.get(f"{vendor.upper()}_REASONING_BUDGET", os.environ.get("REASONING_BUDGET", 10000))
+        if self.reasoning_budget is not None:
+            self.reasoning_budget = int(self.reasoning_budget)
+
+        # Sampling parameters
         self.n = os.environ.get(f"{vendor.upper()}_N", os.environ.get("N", 512))
         self.k = os.environ.get(f"{vendor.upper()}_K", os.environ.get("K"))
         self.p = os.environ.get(f"{vendor.upper()}_P", os.environ.get("P"))
         self.temperature = os.environ.get(f"{vendor.upper()}_TEMPERATURE", os.environ.get("TEMPERATURE"))
 
-        if self.temperature and (self.k or self.p):
-            raise ValueError("Temperature cannot be used with k or p.")
-        
-        if self.k and not self.p:
-            raise ValueError("Top-p sampling requires a p value.")
-        
-        if self.p and not self.k:
-            raise ValueError("Top-k sampling requires a k value.")
-        
         if not self.k and not self.p and not self.temperature:
             self.temperature = 0.0
+
+        # Penalty parameters
+        self.frequency_penalty = os.environ.get(f"{vendor.upper()}_FREQUENCY_PENALTY", os.environ.get("FREQUENCY_PENALTY", 0))
+        self.presence_penalty = os.environ.get(f"{vendor.upper()}_PRESENCE_PENALTY", os.environ.get("PRESENCE_PENALTY", 0))
+        self.frequency_penalty = int(self.frequency_penalty)
         
         self.max_tokens = os.environ.get(f"{vendor.upper()}_MAX_OUTPUT_TOKENS", os.environ.get("MAX_OUTPUT_TOKENS", 4096))
         self.stop = os.environ.get(f"{vendor.upper()}_STOP", os.environ.get("STOP", None))
