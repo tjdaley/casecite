@@ -87,7 +87,7 @@ class LegalCitationResearcher:
         2. Provide each citation in proper Bluebook format
         3. Include a brief description of what each citation contains
         4. Focus on Texas family law authorities unless specifically directed otherwise
-        5. Always output properly formatted json content between `<json_output>` and `</json_output>` tags
+        5. Always output properly formatted json content between `<json_output>` and `</json_output>` tags. You must include both tags. The json output between tags must be properly formatted and parsable.
         6. If you cannot complete a citation because of output token limits, drop that citation and complete the json output.
         """
 
@@ -136,7 +136,7 @@ class LegalCitationResearcher:
         3. Only mark citations as verified if you have High or Medium confidence in your recall
         4. Provide the exact holding or statutory language that makes the citation relevant
         5. Be transparent about any limitations in your knowledge
-        6. Always output properly formatted json content between `<json_output>` and `</json_output>` tags
+        6. Always output properly formatted json content between `<json_output>` and `</json_output>` tags. You must include both tags. The json output between tags must be properly formatted and parsable.
         7. If you cannot complete a citation because of output token limits, drop that citation and complete the json output.
         """
 
