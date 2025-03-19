@@ -118,13 +118,12 @@ class LegalCitationResearcher:
                 ]
                 ```
 
-                **Important:** Place your final response within `<json_output>` and `</json_output>` tags, as shown below:
+                **Important:** Place your final response within `<json_output>` and `</json_output>` tags,
+                as shown below. You MUST include both XML tags and the json content in your response:
 
-                ```text
                 <json_output>
                 [JSON content here]
                 </json_output>
-                ```
                 """
         
         self.verification_system_prompt = """
@@ -181,13 +180,12 @@ class LegalCitationResearcher:
                 ]
                 ```
 
-                **Important:** Place your final response within `<json_output>` and `</json_output>` tags, as shown below:
+                **Important:** Place your final response within `<json_output>` and `</json_output>` tags,
+                as shown below. You MUST include both XML tags and the json content in your response:
 
-                ```text
                 <json_output>
                 [JSON content here]
                 </json_output>
-                ```
             """
         
         self.conclusion_system_prompt = """
