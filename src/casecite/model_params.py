@@ -36,7 +36,7 @@ class ModelParams():
         if not self.model:
             raise ValueError(f"Model not found for vendor: {vendor} // {key}")
         
-        self.reasoning = os.environ.get(f"{vendor.upper()}_REASONING_ENABLED", os.environ.get("REASONING_ENABLED", False))
+        self.reasoning = os.environ.get(f"{vendor.upper()}_REASONING_ENABLED", os.environ.get("REASONING_ENABLED", 'False'))
         if self.reasoning is not None:
             self.reasoning = self.reasoning.lower() in ['true', '1', 't', 'yes', 'y']
 
