@@ -36,7 +36,9 @@ class ModelParams():
         if not self.model:
             raise ValueError(f"Model not found for vendor: {vendor} // {key}")
         
-        self.reasoning = os.environ.get(f"{vendor.upper()}_REASONING_ENABLED", os.environ.get("REASONING_ENABLED", 'False'))
+        # Reasoning parameters
+        key = f"{vendor.upper()}_REASONING_ENABLED"
+        self.reasoning = os.environ.get(f"{key}", os.environ.get("REASONING_ENABLED", 'False'))
         self.reasoning = self.reasoning.lower() in ['true', '1', 't', 'yes', 'y']
 
         self.reasoning_budget = os.environ.get(f"{vendor.upper()}_REASONING_BUDGET", os.environ.get("REASONING_BUDGET", 10000))
@@ -71,4 +73,9 @@ class ModelParams():
             "temperature": self.temperature,
             "max_tokens": self.max_tokens,
             "stop": self.stop,
+            "reasoning": self.reasoning,
+            "reasoning_budget": self.reasoning_budget,
+            "frequency_penalty": self.frequency_penalty,
+            "presence_penalty": self.presence_penalty,
+            "vendor": self.vendor,
         }

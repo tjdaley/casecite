@@ -62,7 +62,7 @@ class LegalCitationResearcher:
                 anthropic_api_key=config.api_key,
                 temperature=config.temperature,
                 max_tokens=config.max_tokens,
-                **thinking,
+                thinking=thinking,
                 #claude_reasoning=config.reasoning,
                 #budget_tokens=config.reasoning_budget,
             )
