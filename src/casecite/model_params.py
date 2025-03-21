@@ -37,12 +37,10 @@ class ModelParams():
             raise ValueError(f"Model not found for vendor: {vendor} // {key}")
         
         self.reasoning = os.environ.get(f"{vendor.upper()}_REASONING_ENABLED", os.environ.get("REASONING_ENABLED", 'False'))
-        if self.reasoning is not None:
-            self.reasoning = self.reasoning.lower() in ['true', '1', 't', 'yes', 'y']
+        self.reasoning = self.reasoning.lower() in ['true', '1', 't', 'yes', 'y']
 
         self.reasoning_budget = os.environ.get(f"{vendor.upper()}_REASONING_BUDGET", os.environ.get("REASONING_BUDGET", 10000))
-        if self.reasoning_budget is not None:
-            self.reasoning_budget = int(self.reasoning_budget)
+        self.reasoning_budget = int(self.reasoning_budget)
 
         # Sampling parameters
         self.n = os.environ.get(f"{vendor.upper()}_N", os.environ.get("N", 512))

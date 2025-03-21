@@ -48,13 +48,21 @@ class LegalCitationResearcher:
         """Initialize the researcher with the specified model and prompts."""
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
+
         if config.vendor == "anthropic":
+            if config.reasoning:
+                thinking = {"type": "enabled", "budget_tokens": config.reasoning_budget}
+                print("@@@@@ Using reasoning for Anthropic")
+            else:
+                thinking = {"type": "disabled"}
+                print("@@@@@ Not using reasoning for Anthropic")
+
             self.llm = ChatAnthropic(
                 model=config.model,
                 anthropic_api_key=config.api_key,
                 temperature=config.temperature,
                 max_tokens=config.max_tokens,
-                thinking={"type": "enabled" if config.reasoning else "disabled", "budget_tokens": config.reasoning_budget},
+                **thinking,
                 #claude_reasoning=config.reasoning,
                 #budget_tokens=config.reasoning_budget,
             )
