@@ -54,8 +54,9 @@ class LegalCitationResearcher:
                 anthropic_api_key=config.api_key,
                 temperature=config.temperature,
                 max_tokens=config.max_tokens,
-                claude_reasoning=config.reasoning,
-                budget_tokens=config.reasoning_budget,
+                thinking={"type": "enabled" if config.reasoning else "disabled", "budget_tokens": config.reasoning_budget},
+                #claude_reasoning=config.reasoning,
+                #budget_tokens=config.reasoning_budget,
             )
         elif config.vendor == "openai":
             self.llm = ChatOpenAI(
