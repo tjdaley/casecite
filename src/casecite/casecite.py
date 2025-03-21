@@ -155,11 +155,11 @@ class LegalCitationResearcher:
 
                 ```json
                 [
-                {
+                {{
                     "citation_text": "Tex. Fam. Code § X.XXX",
                     "description": "Brief description of what the citation contains.",
                     "relevance": "Explanation of why it's relevant to the proposition."
-                }
+                }}
                 ]
                 ```
 
